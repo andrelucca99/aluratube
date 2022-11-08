@@ -2,6 +2,7 @@
   "name": "André Lucas",
   "job": "Desenvolvedor Front End",
   "github": "andrelucca99",
+  "banner": "https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
   "playlists": {
     "jogos": [
       {
@@ -129,5 +130,13 @@
         "thumb": "https://img.youtube.com/vi/0JWMVc1CqpA/hqdefault.jpg"
       }
     ]
-  }
+  },
+  "favorites": [
+    "https://img.freepik.com/fotos-gratis/estilo-de-vida-beleza-e-moda-conceito-de-emocoes-de-pessoas-jovem-gerente-de-escritorio-feminino-asiatico-ceo-com-expressao-satisfeita-em-pe-sobre-um-fundo-branco-sorrindo-com-os-bracos-cruzados-sobre-o-peito_1258-59329.jpg?w=2000",
+    "https://i.em.com.br/8V44vdmqHjPwyQ2vGPCJFRtAxJw=/790x/smart/imgsapp.em.com.br/app/noticia_127983242361/2022/02/11/1344179/jovem-negra-usando-moletom-lilas-mexendo-no-celular-_1_83579.jpg"
+  ],
+  "favoritesName": [
+    "@jaqueline",
+    "@michelle"
+  ]
 }

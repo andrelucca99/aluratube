@@ -45,4 +45,20 @@ export const StyledTimeline = styled.div`
       }
     }
   }
+
+  .favorites h3 {
+    font-family: Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  .favorites .img-favor {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 20px 5px;
+  }
 `;

@@ -28,7 +28,7 @@ export default HomePage;
 // }
 
 const StyledHeader = styled.div`
-  img {
+  .banner-test {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -41,14 +41,24 @@ const StyledHeader = styled.div`
     padding: 16px 32px;
     gap: 16px;
   }
+  .banner img{
+    width: 100%;
+    height: 350px;
+    background: red;
+    background-repeat: no-repeat;
+  background-attachment: fixed;
+    margin-top: 100px;
+  }
 `;
 
 function Header() {
   return (
     <StyledHeader>
-      {/* <img src="banner" /> */}
+      <div className="banner">
+        <img src={ config.banner } />
+      </div>
       <section className="user-info">
-        <img src={`https://github.com/${config.github}.png`} />
+        <img className="banner-test" src={`https://github.com/${config.github}.png`} />
         <div>
           <h2>{config.name}</h2>
           <p>{config.job}</p>
@@ -82,6 +92,11 @@ function Timeline(propriedades) {
           </section>
         );
       })}
+      <div className="favorites">
+        <h3>AluraTubes Favoritos</h3>
+        <img className="img-favor" src={ config.favorites[0] } />
+        <img className="img-favor" src={ config.favorites[1] }/>
+      </div>
     </StyledTimeline>
   );
 }
