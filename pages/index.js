@@ -1,7 +1,6 @@
 import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
-import { CSSReset } from "../src/components/CSSReset";
 import { StyledTimeline } from "../src/components/Timeline";
 import Menu from "../src/components/Menu";
 
@@ -9,7 +8,6 @@ function HomePage() {
   const [valorDoFiltro, setvalorDoFiltro] = React.useState("");
   return (
     <>
-      <CSSReset />
       <div>
         <Menu valorDoFiltro={valorDoFiltro} setvalorDoFiltro={setvalorDoFiltro}/>
         <Header />
@@ -30,7 +28,9 @@ export default HomePage;
 // }
 
 const StyledHeader = styled.div`
-  .icon-user {
+  background-color: ${({ theme }) => theme.backgroundLevel1};
+
+  img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -56,7 +56,7 @@ function Header() {
     <StyledHeader>
       <StyledBanner />
       <section className="user-info">
-        <img className="icon-user" src={`https://github.com/${config.github}.png`} />
+        <img src={`https://github.com/${config.github}.png`} />
         <div>
           <h2>{config.name}</h2>
           <p>{config.job}</p>
