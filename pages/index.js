@@ -3,15 +3,37 @@ import config from "../config.json";
 import styled from "styled-components";
 import { StyledTimeline } from "../src/components/Timeline";
 import Menu from "../src/components/Menu";
+import { videoService } from "../src/services/videoService";
 
 function HomePage() {
+  const service = videoService();
   const [valorDoFiltro, setvalorDoFiltro] = React.useState("");
+  const [playlists, setPlaylists] = React.useState({});
+
+  React.useEffect(() => {
+    service
+      .getAllVideos()
+      .then((dados) => {
+        const novasPlaylist = { ...playlists };
+        dados.data.forEach((video) => {
+          if (!novasPlaylist[video.playlist]) novasPlaylist[video.playlist] = [];
+          novasPlaylist[video.playlist].push(video);
+        });
+        setPlaylists(novasPlaylist);
+      });
+  }, []);
+
   return (
     <>
       <div>
-        <Menu valorDoFiltro={valorDoFiltro} setvalorDoFiltro={setvalorDoFiltro}/>
+        <Menu
+          valorDoFiltro={valorDoFiltro}
+          setvalorDoFiltro={setvalorDoFiltro}
+        />
         <Header />
-        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>Conteúdo</Timeline>
+        <Timeline searchValue={valorDoFiltro} playlists={playlists}>
+          Conteúdo
+        </Timeline>
       </div>
     </>
   );
@@ -66,7 +88,7 @@ function Header() {
   );
 }
 
-function Timeline({searchValue, ...propriedades}) {
+function Timeline({ searchValue, ...propriedades }) {
   const playlistNames = Object.keys(propriedades.playlists);
   // Statement
   // Retorno por expressão
@@ -78,26 +100,28 @@ function Timeline({searchValue, ...propriedades}) {
           <section key={playlistName}>
             <h2>{playlistName}</h2>
             <div>
-              {videos.filter((video) => {
-                const titleNormalized = video.title.toLowerCase();
-                const searchValueNormalized = searchValue.toLowerCase();
-                return titleNormalized.includes(searchValueNormalized)
-              }).map((video) => {
-                return (
-                  <a key={video.url} href={video.url}>
-                    <img src={video.thumb} />
-                    <span>{video.title}</span>
-                  </a>
-                );
-              })}
+              {videos
+                .filter((video) => {
+                  const titleNormalized = video.title.toLowerCase();
+                  const searchValueNormalized = searchValue.toLowerCase();
+                  return titleNormalized.includes(searchValueNormalized);
+                })
+                .map((video) => {
+                  return (
+                    <a key={video.url} href={video.url}>
+                      <img src={video.thumb} />
+                      <span>{video.title}</span>
+                    </a>
+                  );
+                })}
             </div>
           </section>
         );
       })}
       <div className="favorites">
         <h3>AluraTubes Favoritos</h3>
-        <img className="img-favor" src={ config.favorites[0] } />
-        <img className="img-favor" src={ config.favorites[1] }/>
+        <img className="img-favor" src={config.favorites[0]} />
+        <img className="img-favor" src={config.favorites[1]} />
       </div>
     </StyledTimeline>
   );

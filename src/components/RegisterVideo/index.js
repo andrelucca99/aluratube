@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import React from "react";
 import { StyledRegisterVideo } from "./styles";
 
@@ -20,9 +21,20 @@ function useForm(propsDoForm) {
   };
 }
 
+const PROJECT_URL = "https://pnsrggshqpkzukmuqxlh.supabase.co";
+const PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuc3JnZ3NocXBrenVrbXVxeGxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxNjY3MzMsImV4cCI6MTk4Mzc0MjczM30.bcZFZOHaH3HGoluzjclUTDyr_IjYEyi_NER2I4BJSUg";
+const supabase = createClient(PROJECT_URL, PUBLIC_KEY);
+
+function getThumbnail(url) {
+  return `https://img.youtube.com/vi/${url.split("v=")[1]}/hqdefault.jpg`;
+}
+
 export default function RegisterVideo() {
   const formCadastro = useForm({
-    initialValues: { titulo: "Frost punk", url: "https://youtube.." },
+    initialValues: {
+      titulo: "Netdecking Estraga o Magic?",
+      url: "https://www.youtube.com/watch?v=dXihyhYEsEc",
+    },
   });
 
   const [formVisivel, setFormVisivel] = React.useState(false);
@@ -36,6 +48,22 @@ export default function RegisterVideo() {
         <form
           onSubmit={(evento) => {
             evento.preventDefault();
+
+            // Contrato entre o nosso front-end e o back-end
+            supabase
+              .from("video")
+              .insert({
+                title: formCadastro.values.titulo,
+                url: formCadastro.values.url,
+                thumb: getThumbnail(formCadastro.values.url),
+                playlist: "jogos",
+              })
+              .then((result) => {
+                console.log(result);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
             setFormVisivel(false);
             formCadastro.clearForm();
           }}
